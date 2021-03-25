@@ -21,7 +21,7 @@ W1 = astra.OpTomo(proj_id)
 
 # so we do this instead
 t0 = time()
-p1 = W1 @ x.ravel().get()
+p1 = W1 @ (x.ravel().get())
 print("Projected with ASTRA OpTomo in", time() - t0, "seconds")
 
 # with the cupy friendly OpTomo we can work on cupy arrays (GPU)
@@ -31,3 +31,5 @@ W = OpTomo(proj_id)
 t0 = time()
 p2 = W @ x.ravel()
 print("Projected with Cupy friendly OpTomo in", time() - t0, "seconds")
+
+print("all close?", np.allclose(p1, p2.get()))
